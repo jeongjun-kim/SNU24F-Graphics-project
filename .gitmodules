@@ -1,0 +1,6 @@
+[submodule "submodules/K-Planes"]
+	path = submodules/K-Planes
+	url = git@github.com:sarafridov/K-Planes.git
+[submodule "submodules/2d-gaussain-splatting"]
+	path = submodules/2d-gaussain-splatting
+	url = git@github.com:hbb1/2d-gaussian-splatting.git
