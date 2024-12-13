@@ -398,15 +398,13 @@ for edge in loose_edges:
     bm.edges.remove(edge)
 
 # Ensure vertex color attributes are preserved
-if len(mesh.color_attributes) > 0:
-    color_layer = mesh.color_attributes.active
-    if color_layer and color_layer.domain == 'POINT':
-        # Collect vertex colors before writing the updated mesh
-        vertex_colors = [color_layer.data[i].color for i in range(len(mesh.vertices))]
-    else:
-        vertex_colors = None
+color_layer = mesh.color_attributes[color_layer_name]
+if color_layer and color_layer.domain == 'POINT':
+    # Collect vertex colors before writing the updated mesh
+    vertex_colors = [color_layer.data[i].color for i in range(len(mesh.vertices))]
 else:
     vertex_colors = None
+
 
 # Write changes back to the mesh
 bm.to_mesh(mesh)
