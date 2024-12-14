@@ -15,6 +15,35 @@ def log_stats_change(start_stats, end_stats, process_name, elapsed_time):
     faces_diff = end_stats[2] - start_stats[2]
     print(f"{process_name}: \n    Vertices: {verts_diff:+}, Edges: {edges_diff:+}, Faces: {faces_diff:+}, Time: {elapsed_time:.4f} seconds")
 
+def compute_dynamic_threshold(obj, percentile=95):
+    """
+    Compute a dynamic threshold based on vertex distances.
+
+    :param obj: The mesh object to analyze.
+    :param percentile: The percentile of distances to use as the threshold.
+    :return: A dynamic threshold value.
+    """
+    bpy.ops.object.mode_set(mode='EDIT')
+    bm = bmesh.from_edit_mesh(obj.data)
+
+    # Calculate distances between all connected vertices
+    distances = []
+    for edge in bm.edges:
+        dist = (edge.verts[0].co - edge.verts[1].co).length
+        distances.append(dist)
+
+    if not distances:
+        print("No distances calculated; defaulting threshold to 0.001.")
+        return 0.001
+
+    # Compute the desired percentile as the threshold
+    distances.sort()
+    index = int(len(distances) * (percentile / 100.0))
+    threshold = distances[min(index, len(distances) - 1)]
+
+    print(f"Dynamic threshold calculated: {threshold:.6f}")
+    return threshold
+
 def custom_fill(obj):
     """
     Detect and fill holes (non-manifold edges) in the selected mesh object.
@@ -113,16 +142,15 @@ def clean_non_manifold(threshold=0.0001, sides=0):
 # Example usage
 if __name__ == "__main__":
     obj = bpy.context.active_object
+    print("=========================================")
     if obj:
         print("Running custom fill...")
         custom_fill(obj)
         
-        ########################
-        # TODO : Find threshold
-        threshold = 0.001
-        ########################
+        print("Calculating dynamic threshold...")
+        threshold = compute_dynamic_threshold(obj, percentile=10)
+
         print("Running clean non-manifold...")
         clean_non_manifold(threshold=threshold, sides=4)
     else:
         print("No active object selected!")
-
