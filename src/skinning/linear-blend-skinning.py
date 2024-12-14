@@ -4,13 +4,13 @@ Animating an object from single monocular video
 
 name: linear-blend-skinning.py
 description: Perform Linear Blend Skinning (LBS) on a mesh object using an armature
-Run this script after assigning weights to the mesh object
+Run this script AFTER ASSIGNING WEIGHTS to the mesh object
 
 how to use:
     1. Open Blender file
     2. Open the Python Console
     3. Open the script file on the Python Console
-    4. *** Change weight function and corresponding parameters in the script ***
+    4. *** Change object_name and armature_name in the script ***
     6. Run the script
 '''
 
