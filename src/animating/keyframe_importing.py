@@ -19,8 +19,8 @@ import bpy
 import json
 
 
-OUTPUT_PATH = ""
-    
+PATH = ""
+
 # Import Animation
 def import_animation(filepath):
     obj = bpy.context.object
@@ -42,20 +42,16 @@ def import_animation(filepath):
         for bone_data in frame_data["bones"]:
             bone_name = bone_data["name"]
             if bone_name not in obj.pose.bones:
-                print(f"Bone {bone_name} not found in the armature!")
                 continue
             
             bone = obj.pose.bones[bone_name]
             
-            # Apply location
             bone.location = bone_data["location"]
             bone.keyframe_insert(data_path="location", frame=frame)
             
-            # Apply rotation
             bone.rotation_quaternion = bone_data["rotation_quaternion"]
             bone.keyframe_insert(data_path="rotation_quaternion", frame=frame)
             
-            # Apply scale
             bone.scale = bone_data["scale"]
             bone.keyframe_insert(data_path="scale", frame=frame)
     
@@ -63,4 +59,4 @@ def import_animation(filepath):
 
 
 if __name__ == "__main__":
-    import_animation(OUTPUT_PATH)
+    import_animation(PATH)
