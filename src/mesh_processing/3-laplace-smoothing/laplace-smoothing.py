@@ -61,24 +61,28 @@ def laplace_smooth(obj, iterations=1, lambda_factor=0.5, preservation_method='no
 
                 if preservation_method == 'centroid':
                     # Adjust for global centroid-based volume preservation
-                    v.co = smoothed_position + (v.co - centroid) * (1 - lambda_factor) *0.001
+                    v.co = smoothed_position + (v.co - centroid) * (1 - lambda_factor) * 0.001
                 elif preservation_method == 'local_volume':
                     # Calculate local volume before smoothing
-                    initial_volume = calculate_local_volume(v, neighbors)
+                    initial_volume = calculate_local_volume(v, neighbors, vertex_positions)
 
-                    # Apply smoothing and calculate new volume
-                    v.co = smoothed_position
-                    new_volume = calculate_local_volume(v, neighbors)
+                    # Apply smoothing temporarily
+                    new_position = smoothed_position
+                    new_volume = calculate_local_volume(v, neighbors, vertex_positions, new_position)
 
                     # Adjust to maintain local volume
-                    volume_ratio = initial_volume / new_volume if new_volume != 0 else 1
-                    v.co = v.co.lerp(smoothed_position, volume_ratio)
+                    if new_volume != 0:
+                        volume_ratio = (initial_volume / new_volume) ** (1/3)  # Scale in 3D
+                    else:
+                        volume_ratio = 1.0
+
+                    v.co = v.co.lerp(new_position, volume_ratio)
                 elif preservation_method == 'tangential':
                     # Restrict movement to the tangential plane
                     normal = v.normal
                     movement_vector = smoothed_position - v.co
                     tangential_movement = movement_vector - movement_vector.dot(normal) * normal
-                    v.co += tangential_movement
+                    v.co += 0.1*tangential_movement
                 else:
                     # No preservation, standard Laplace smoothing
                     v.co = smoothed_position
@@ -87,18 +91,30 @@ def laplace_smooth(obj, iterations=1, lambda_factor=0.5, preservation_method='no
     bm.free()
     print(f"Laplace smoothing with {preservation_method} preservation applied to {obj.name} for {iterations} iterations.")
 
-def calculate_local_volume(vertex, neighbors):
+def calculate_local_volume(vertex, neighbors, vertex_positions, position=None):
     """
-    method for local volume preservation method.
-    Calculate the local volume (or area in 2D) around a vertex.
+    Calculate the local volume as the sum of tetrahedral volumes formed by the vertex, neighbors, and the origin.
 
     vertex: The vertex being smoothed.
     neighbors: List of neighboring vertices.
+    vertex_positions: Dictionary of original vertex positions.
+    position: Optional position to use for the vertex instead of its current location.
     """
+    if position is None:
+        position = vertex.co  # Default to the current position
+
     volume = 0.0
+    origin = Vector((0, 0, 0))  # Assume the origin for simplicity
+
     for n in neighbors:
-        volume += (vertex.co - n.co).length
+        # Calculate tetrahedron volume using vertex, neighbor, and the origin
+        v1 = position
+        v2 = vertex_positions[n]
+        tetra_volume = abs((v1 - origin).cross(v2 - origin).dot(v2 - v1)) / 6.0
+        volume += tetra_volume
+
     return volume
+
 
 if __name__ == "__main__":
     obj = bpy.context.active_object
