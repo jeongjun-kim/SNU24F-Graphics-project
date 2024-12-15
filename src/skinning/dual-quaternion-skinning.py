@@ -11,7 +11,7 @@ how to use:
     1. Open Blender file
     2. Open the Python Console
     3. Open the script file on the Python Console
-    4. *** Change object_name and armature_name in the script ***
+    4. *** Change OBJECT_NAME and ARMATURE_NAME in the script ***
     5. Run the script
 '''
 
@@ -69,16 +69,16 @@ def matrix_to_dual_quaternion(matrix):
     return DualQuaternion(real, dual)
 
 
-object_name = "jumpingjacks"
-armature_name = "metarig"
+OBJECT_NAME = "jumpingjacks"
+ARMATURE_NAME = "metarig"
 
 # Access the objects
-obj = bpy.data.objects.get(object_name)
-armature = bpy.data.objects.get(armature_name)
+obj = bpy.data.objects.get(OBJECT_NAME)
+armature = bpy.data.objects.get(ARMATURE_NAME)
 if not obj or not armature:
     raise ValueError("Object or armature not found.")
 
-print(f"Using object: {object_name}, armature: {armature_name}")
+print(f"Using object: {OBJECT_NAME}, armature: {ARMATURE_NAME}")
 
 # Ensure we're in Object Mode
 bpy.ops.object.mode_set(mode='OBJECT')

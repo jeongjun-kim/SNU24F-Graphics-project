@@ -21,23 +21,23 @@ import math
 
 ### ------------ TODO: Set up the parameters ------------- ###
 # mesh object, armature
-object_name = "jumpingjacks"
-armature_name = "metarig"
+OBJECT_NAME = "jumpingjacks"
+ARMATURE_NAME = "metarig"
 
 # Method: ["linear", "sigmoid", "exponential", "noise", "cluster"]
-skinning_method = "exponential"
+SKINNING_METHOD = "exponential"
 
 # Parameters
-influence_radius = 0.2  # Maximum influence radius for bones
-factor = 1.2
+INFLUENCE_RADIUS = 0.2  # Maximum influence radius for bones
+FACTOR = 1.2
 
 # Sigmoid weight function
-weight_sharpness = 10.0
+WEIGHT_SHARPNESS = 10.0
 # Exponential weight function
-decay_factor = 30.0
+DECAY_FACTOR = 30.0
 
 # Bone-specific factors for weighting
-bone_weight_factors = {  
+BONE_WEIGHT_FACTORS = {  
     "Hips": 2.0,
     "Spine": 1.5,
     "Spine1": 1.5,
@@ -54,8 +54,8 @@ bone_weight_factors = {
 min_weight_threshold = 0.0
 
 # Access the objects
-obj = bpy.data.objects.get(object_name)
-armature = bpy.data.objects.get(armature_name)
+obj = bpy.data.objects.get(OBJECT_NAME)
+armature = bpy.data.objects.get(ARMATURE_NAME)
 if obj:
     print('mesh is right')
 if armature:
@@ -96,23 +96,23 @@ for bone in armature.pose.bones:
         
         dist = (vertex_pos - closest_point_on_bone).length
         
-        # Get the bone-specific weighting factor
-        factor = bone_weight_factors.get(bone.name, 1.0)*4
+        # Get the bone-specific weighting FACTOR
+        FACTOR = BONE_WEIGHT_FACTORS.get(bone.name, 1.0)*4
         
         weight : float = 0.0
         # Weight functions
-        if skinning_method == "linear":
-            weight = max(min_weight_threshold, (1.0 - (dist / influence_radius)) * factor)
-        elif skinning_method == "sigmoid":
-            weight = 1 / (1 + math.exp(weight_sharpness * (dist - influence_radius / 2)))
-            weight = max(min_weight_threshold, weight * factor)
-        elif skinning_method == "exponential":
-            weight = max(min_weight_threshold, math.exp(-decay_factor * dist) * factor)
-        elif skinning_method == "noise":
+        if SKINNING_METHOD == "linear":
+            weight = max(min_weight_threshold, (1.0 - (dist / INFLUENCE_RADIUS)) * FACTOR)
+        elif SKINNING_METHOD == "sigmoid":
+            weight = 1 / (1 + math.exp(WEIGHT_SHARPNESS * (dist - INFLUENCE_RADIUS / 2)))
+            weight = max(min_weight_threshold, weight * FACTOR)
+        elif SKINNING_METHOD == "exponential":
+            weight = max(min_weight_threshold, math.exp(-DECAY_FACTOR * dist) * FACTOR)
+        elif SKINNING_METHOD == "noise":
             import random
             noise_intensity = 0.5  # Maximum noise variation (0 to 1)
             random.seed(42)
-            base_weight = max(min_weight_threshold, (1.0 - (dist / influence_radius)))
+            base_weight = max(min_weight_threshold, (1.0 - (dist / INFLUENCE_RADIUS)))
             # Add noise
             noise = random.uniform(-noise_intensity, noise_intensity)
             weight = max(min_weight_threshold, base_weight + noise)
@@ -123,4 +123,4 @@ for bone in armature.pose.bones:
 bm.free()
 mesh.update()
 
-print(f"{skinning_method.capitalize()}-based weights assigned!")
+print(f"{SKINNING_METHOD.capitalize()}-based weights assigned!")

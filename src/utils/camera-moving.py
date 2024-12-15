@@ -18,42 +18,41 @@ import math
 from mathutils import Euler, Vector
 
 # Parameters
-camera_name = "Camera"
+CAMERA_NAME = "Camera"
 
 ### TODO: Set the frame ####
-frame_start = 1
-frame_end = 282
-
+FRAME_START = 1
+FRAME_END = 282
 
 ### TODO: Set the hemisphere angles ####
-theta_start = 0.0       # in degrees
-theta_end = 360.0
-phi_start = 30.0              # fixed vertical angle (just an example) 
-phi_end = 70.0
-radius = 8.0
+THETA_START = 0.0       # in degrees
+THETA_END = 360.0
+PHI_START = 30.0              # fixed vertical angle (just an example) 
+PHI_END = 70.0
+RADIUS = 8.0
 
 # Convert angles to radians
-theta_range = theta_end - theta_start
-phi_range = phi_end - phi_start
+theta_range = THETA_END - THETA_START
+phi_range = PHI_END - PHI_START
 
 # Get the camera object
-camera = bpy.data.objects.get(camera_name)
+camera = bpy.data.objects.get(CAMERA_NAME)
 if camera is None:
-    raise ValueError(f"Camera object named '{camera_name}' not found in the scene.")
+    raise ValueError(f"Camera object named '{CAMERA_NAME}' not found in the scene.")
 
-frame_count = frame_end - frame_start + 1
-for i, frame in enumerate(range(frame_start, frame_end + 1)):
+frame_count = FRAME_END - FRAME_START + 1
+for i, frame in enumerate(range(FRAME_START, FRAME_END + 1)):
     # Progress from 0 to 1 through frames
     t = i / (frame_count - 1)
     
     # Current angle in radians
-    theta_current = math.radians(theta_start + t * theta_range)
-    phi_current = math.radians(phi_start + t * phi_range)
+    theta_current = math.radians(THETA_START + t * theta_range)
+    phi_current = math.radians(PHI_START + t * phi_range)
     
     # Spherical coordinates:
-    x = radius * math.sin(phi_current) * math.cos(theta_current)
-    y = radius * math.sin(phi_current) * math.sin(theta_current)
-    z = radius * math.cos(phi_current)
+    x = RADIUS * math.sin(phi_current) * math.cos(theta_current)
+    y = RADIUS * math.sin(phi_current) * math.sin(theta_current)
+    z = RADIUS * math.cos(phi_current)
     
     # Set the camera location
     camera.location = (x, y, z)
@@ -69,7 +68,7 @@ for i, frame in enumerate(range(frame_start, frame_end + 1)):
     camera.keyframe_insert(data_path="rotation_euler", frame=frame)
 
 # Optionally, you can set the scene frame range
-bpy.context.scene.frame_start = frame_start
-bpy.context.scene.frame_end = frame_end
+bpy.context.scene.FRAME_START = FRAME_START
+bpy.context.scene.FRAME_END = FRAME_END
 
 print("Camera moving setup ended")
