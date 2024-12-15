@@ -1,3 +1,28 @@
+'''
+2024 Graphics Programming Final Project
+Animating an object from single monocular video
+
+name: mesh_postprocessing.py
+description: 
+Performs post-processing on a selected mesh object in Blender.It focuses on 
+cleaning up and optimizing the mesh for further workflows, such as weighting.
+This script handles below issues 
+- non-manifold geometry
+- loose elements
+- duplicate vertices
+- degenerate faces. 
+and dynamically computes thresholds for specific cleanup operations.
+
+reference: 
+
+how to use:
+    1. Open Blender file
+    2. Open the Python Console
+    3. Open the script file on the Python Console
+    4. *** Select a mesh object in the 3D Viewport, Object mode before running the script ***
+    5. Run the script
+'''
+
 import bmesh
 import bpy
 import time
@@ -19,9 +44,8 @@ def compute_dynamic_threshold(obj, percentile=95):
     """
     Compute a dynamic threshold based on vertex distances.
 
-    :param obj: The mesh object to analyze.
-    :param percentile: The percentile of distances to use as the threshold.
-    :return: A dynamic threshold value.
+    obj: The mesh object to analyze.
+    percentile: The percentile of distances to use as the threshold.
     """
     bpy.ops.object.mode_set(mode='EDIT')
     bm = bmesh.from_edit_mesh(obj.data)
@@ -80,8 +104,8 @@ def clean_non_manifold(threshold=0.0001, sides=0):
     """
     Cleanup non-manifold issues such as loose elements, duplicate vertices, and holes.
     
-    :param threshold: Minimum distance between elements to merge.
-    :param sides: Number of sides in hole required to fill (0 fills all holes).
+    threshold: Minimum distance between elements to merge.
+    sides: Number of sides in hole required to fill (0 fills all holes).
     """
     # Ensure in Edit Mode
     bpy.ops.object.mode_set(mode="EDIT")
@@ -139,7 +163,6 @@ def clean_non_manifold(threshold=0.0001, sides=0):
     elapsed_time = time.time() - start_time
     log_stats_change(start_stats, get_mesh_stats(), "Ensure Consistent Normals", elapsed_time)
 
-# Example usage
 if __name__ == "__main__":
     obj = bpy.context.active_object
     print("=========================================")

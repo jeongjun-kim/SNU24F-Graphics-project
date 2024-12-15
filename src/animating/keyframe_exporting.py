@@ -1,3 +1,20 @@
+'''
+2024 Graphics Programming Final Project
+Animating an object from single monocular video
+
+name: keyframe_exporting.py
+description: Perform Dual Quaternion Skinning (DQS) on a mesh object using an armature
+Run this script AFTER ASSIGNING WEIGHTS to the mesh object
+reference: 
+
+how to use:
+    1. Open Blender file
+    2. Open the Python Console
+    3. Open the script file on the Python Console
+    4. *** Change object_name and armature_name in the script ***
+    5. Run the script
+'''
+
 import bpy
 import json
 
@@ -47,4 +64,5 @@ def export_keyframe_animation(filepath):
     
     print(f"Keyframe animation exported to {filepath}")
     
-export_keyframe_animation(OUTPUT_PATH)
+if __name__ == "__main__":
+    export_keyframe_animation(OUTPUT_PATH)
