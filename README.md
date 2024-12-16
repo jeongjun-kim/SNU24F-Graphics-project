@@ -136,4 +136,6 @@ Continue using `resource/blender/rigged_jumpingjacks.blend` and proceed with ani
 
 ## Notes
 - Use Blender to visualize and verify results during each step.  
-- The provided `.blend` files include sample rigs and meshes for experimentation.  
+- The provided `.blend` files include sample rigs and meshes for experimentation.
+- Final Blender outputs are `resource/blender/final_jumpingjacks.blend`, `resource/blender/final_trex.blend`
+
