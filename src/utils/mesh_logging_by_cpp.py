@@ -16,9 +16,8 @@ how to use:
         - `THRESHOLD`: Maximum distance between vertices to be considered duplicates (default 0.003).
     5. Go to ./cpp/src
     6. $ g++ -shared -fPIC -o ../build/mesh_processing.so mesh_processing.cpp ../includes/glad/glad.c -I../includes -lGL -lglfw -ldl
-    5. Ensure the compiled C++ library is located in the specified path (`./cpp/build/mesh_processing.so`).
-    6. Run the script.
-    7. The processed mesh will have duplicate vertices merged based on the distance threshold.
+    7. Ensure the compiled C++ library is located in the specified path (`./cpp/build/mesh_processing.so`).
+    8. Run the script.
 '''
 
 THRESHOLD = 0.001

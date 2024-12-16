@@ -3,23 +3,21 @@
 Animating an object from single monocular video
 
 name: keyframe_importing.py
-description: Perform Dual Quaternion Skinning (DQS) on a mesh object using an armature
-Run this script AFTER ASSIGNING WEIGHTS to the mesh object
-reference: 
+description: This script performs importing of demo animation keyframes.
 
 how to use:
     1. Open Blender file
     2. Open the Python Console
     3. Open the script file on the Python Console
-    4. *** Change object_name and armature_name in the script ***
-    5. Run the script
+    4. Select a rig(Aramature) object in the 3D Viewport, Object mode before running the script
+    5. fill the PATH with provided json file(exported from mixamo by utils/keyframe_exporting.py)
+    6. Run the script
 '''
 
 import bpy
 import json
 
-
-PATH = ""
+PATH = "../../resource/animation/demo_ani_hand.json"
 
 # Import Animation
 def import_animation(filepath):
