@@ -63,16 +63,16 @@ def laplace_smooth(obj, iterations=1, lambda_factor=0.5, preservation_method='no
                     # Adjust for global centroid-based volume preservation
                     v.co = smoothed_position + (v.co - centroid) * (1 - lambda_factor) * 0.001
                 elif preservation_method == 'local_volume':
-                    # Calculate local volume before smoothing
                     initial_volume = calculate_local_volume(v, neighbors, vertex_positions)
 
-                    # Apply smoothing temporarily
                     new_position = smoothed_position
                     new_volume = calculate_local_volume(v, neighbors, vertex_positions, new_position)
 
-                    # Adjust to maintain local volume
-                    if new_volume != 0:
-                        volume_ratio = (initial_volume / new_volume) ** (1/3)  # Scale in 3D
+                    if initial_volume > 0:  # Ensure initial volume is valid
+                        if new_volume > 0:
+                            volume_ratio = min(1.0, new_volume / initial_volume)
+                        else:
+                            volume_ratio = 0.0
                     else:
                         volume_ratio = 1.0
 

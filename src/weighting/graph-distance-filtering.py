@@ -14,8 +14,6 @@ how to use:
         - `EDGE_THRESHOLD`: Maximum allowed edge distance from the highest-weight vertex.
         - `OBJECT_NAME`: Name of the mesh object to process.
     5. Run the script.
-    6. The script processes all vertex groups in the mesh object, filtering vertices based on graph distance.
-       Processed results will appear in the Python Console log.
 '''
 
 import bpy
