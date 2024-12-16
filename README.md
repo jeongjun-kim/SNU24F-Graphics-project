@@ -1,9 +1,7 @@
 # Animating an Object from a Single Monocular Video
-SNU 24Fall graphics final project code repo
+SNU 2024 Graphics Programming Final Project
 
-# 2024 Graphics Programming Final Project
 
-## 프로젝트 정보
 - **프로젝트명**: Animating an Object from Single Monocular Video (8조)
 - **학번 및 이름**:
   - **2020-16810**: 이다은
