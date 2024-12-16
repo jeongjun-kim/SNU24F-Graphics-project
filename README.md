@@ -53,10 +53,15 @@ SNU 2024 Graphics Programming Final Project
     │   ├── demo_ani_custom_hand.json     
     │   ├── demo_ani_dance.json    
     │   └── demo_ani_hand.json  
-    ├── rig/      
+    ├── rig/        
     │   └── demo_rig.fbx      
     └── raw_mesh/  
-        └──      
+    │   └── 
+    └── blender/
+        ├── naive-jumpingjacks.blend
+        ├── rigged-jumpingjacks.blend
+        ├── final-jumpingjacks.blend
+        └── final-trex.blend
 ```
 ---
 ## Method
