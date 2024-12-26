@@ -1,7 +1,7 @@
 # Animating an Object from a Single Monocular Video
 SNU 2024 Graphics Programming Final Project
 
-Animating an Object from Single Monocular Video (8조)
+Animating an Object from Single Monocular Video
 
 
 ---
