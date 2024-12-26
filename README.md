@@ -1,53 +1,49 @@
 # Animating an Object from a Single Monocular Video
 SNU 2024 Graphics Programming Final Project
 
+Animating an Object from Single Monocular Video (8조)
 
-- **프로젝트명**: Animating an Object from Single Monocular Video (8조)
-- **학번 및 이름**:
-  - **2020-16810**: 이다은
-  - **2019-16966**: 김정준
 
 ---
 
-## 레포지토리 구조
-
+## Repo
 ```plaintext
 .
 ├── README.md              
 ├── src/                   
 │   ├── mesh_processing/   				
 │   │   ├── 1-refinement/				
-│   │   │   └── mesh_postprocessing.py             # 김정준
+│   │   │   └── mesh_postprocessing.py             
 │   │   ├── 2-2-catmull-clark-subdivision/		
-│   │   │   ├── catmull-clark-subdiv-all-geo.py    # 이다은
-│   │   │   ├── catmull-clark-subdiv-all.py        # 이다은
-│   │   │   ├── catmull-clark-subdiv-partial-geo.py # 이다은
-│   │   │   ├── catmull-clark-subdiv-partial.py    # 이다은
+│   │   │   ├── catmull-clark-subdiv-all-geo.py    
+│   │   │   ├── catmull-clark-subdiv-all.py        
+│   │   │   ├── catmull-clark-subdiv-partial-geo.py 
+│   │   │   ├── catmull-clark-subdiv-partial.py    
 │   │   │   └── subdivision-demo.blend			
 │   │   └── 3-laplace-smoothing/ 			
-│   │       └── laplace-smoothing.py              # 김정준
+│   │       └── laplace-smoothing.py              
 │   ├── weighting/         
-│   │   ├── distance-based-weighting.py           # 김정준, 이다은
-│   │   ├── graph-distance-filtering.py           # 김정준
-│   │   └── weight-smoothing.py                   # 김정준
+│   │   ├── distance-based-weighting.py           
+│   │   ├── graph-distance-filtering.py           
+│   │   └── weight-smoothing.py                   
 │   ├── skinning/          
-│   │   ├── dual-quaternion-skinning.py           # 이다은
-│   │   └── linear-blend-skinning.py              # 이다은
+│   │   ├── dual-quaternion-skinning.py           
+│   │   └── linear-blend-skinning.py             
 │   ├── animating/            
-│   │   └── keyframe_importing.py                 # 김정준
+│   │   └── keyframe_importing.py                 
 │   └── utils/             
-│       ├── camera-moving.py                      # 이다은    
-│       ├── keyframe_exporting.py                 # 김정준
-│       ├── mesh_logging_by_cpp.py                # 김정준
-│       ├── plane-threshold-selecting.py          # 이다은
+│       ├── camera-moving.py                      
+│       ├── keyframe_exporting.py                
+│       ├── mesh_logging_by_cpp.py               
+│       ├── plane-threshold-selecting.py          
 │       └── cpp/
 │           ├── build/
 │           │   └── mesh_processing.so			
 │           └── src/
-│               └── mesh_processing.cpp           # 김정준
+│               └── mesh_processing.cpp          
 ├── submodules/            
-│   ├── 2d-gaussain-splatting                     # 이다은
-│   └── K-Planes                                  # 김정준
+│   ├── 2d-gaussain-splatting                    
+│   └── K-Planes                                 
 └── resource/      
     ├── animation/
     │   ├── demo_ani_custom_hand.json     
